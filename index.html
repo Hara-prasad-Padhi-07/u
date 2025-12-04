@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Romantic Video Greeting Card</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'MV Boli', cursive;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 0 0 20px #ff0066, 0 0 40px #ff3399;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff0066; }
+      to { text-shadow: 0 0 30px #ff3399, 0 0 60px #ff66cc; }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes float {
+      0% { bottom: 0; opacity: 1; }
+      100% { bottom: 100vh; opacity: 0; }
+    }
+
+    .surprise {
+      font-size: 2em;
+      color: #fff;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .surprise.show {
+      opacity: 1;
+      text-shadow: 0 0 15px #ff66cc;
+    }
+
+    /* Sparkle effect for second surprise */
+    .sparkle {
+      animation: sparkle 1s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff66cc; }
+      to { text-shadow: 0 0 20px #ffccff, 0 0 40px #ff3399; }
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align:center;">
+    <h1>💖 I Love You my baby💖</h1>
+    <div id="surprise1" class="surprise">only yours>💖>💖</div>
+    <div id="surprise2" class="surprise">love u my baby 
+  </div>
+
+  <!-- Floating hearts -->
+  <div class="heart" style="left:20%; animation-delay:0s;"></div>
+  <div class="heart" style="left:40%; animation-delay:2s;"></div>
+  <div class="heart" style="left:60%; animation-delay:4s;"></div>
+  <div class="heart" style="left:80%; animation-delay:6s;"></div>
+
+  <!-- Background music -->
+  <audio autoplay loop>
+    <source src="romantic.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Auto reveal first surprise after 5s
+    setTimeout(() => {
+      document.getElementById('surprise1').classList.add('show');
+    }, 5000);
+
+    // Auto reveal second surprise after 10s with sparkle
+    setTimeout(() => {
+      const s2 = document.getElementById('surprise2');
+      s2.classList.add('show', 'sparkle');
+    }, 10000);
+
+    // Floating hearts generator
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 1000);
+  </script>
+</body>
+</html>
